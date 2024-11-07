@@ -1,0 +1,29 @@
+.username {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 5;
+    -fx-border-color: lightgray;
+    -fx-border-width: 1;
+}
+
+.Login{
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 5;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-color: transparent;
+}
+
+.Signup{
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 5;
+    -fx-border-color: #B17457;
+    -fx-border-width: 1;
+    -fx-background-color: transparent;
+}
+
+.loginBg {
+    -fx-background-color: #F2EED7;
+}
