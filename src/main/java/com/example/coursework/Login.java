@@ -8,6 +8,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+//Starting application
 public class Login extends Application {
 
     public void start(Stage primaryStage) throws IOException {
@@ -16,6 +17,7 @@ public class Login extends Application {
         scene.getStylesheets().add(getClass().getResource("stylesheets/login.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Login");
+        //Removing the default control buttons
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 
