@@ -13,6 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -115,13 +116,8 @@ public class LoginController implements Initializable {
         userName.textProperty().addListener(new ChangeListener<String>(){
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.matches(".*\\d.*")){
-                    //giving alert
-                    Alert.giveWarningAlert("Incorrect input","You can't enter numbers as User name");
-                    userName.setText(oldValue);
 
-                }
-                else if(newValue.length()>40){
+                if(newValue.length()>40){
                     Alert.giveWarningAlert("Invalid input","You can't enter more than 30 characters as User name");
                     userName.setText(oldValue);
                 }

@@ -67,7 +67,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="LoginPage" layoutX="401.0" layoutY="1.0" prefHeight="601.0" prefWidth="507.0" styleClass="LoginPageBg" visible="false">
+      <Pane fx:id="LoginPage" layoutX="401.0" layoutY="1.0" prefHeight="601.0" prefWidth="507.0" styleClass="LoginPageBg">
          <children>
             <ImageView fitHeight="434.0" fitWidth="431.0" layoutX="40.0" layoutY="81.0" opacity="0.38" pickOnBounds="true" preserveRatio="true">
                <image>
