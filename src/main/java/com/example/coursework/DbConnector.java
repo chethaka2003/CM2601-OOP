@@ -1,9 +1,6 @@
 package com.example.coursework;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DbConnector {
 
@@ -55,8 +52,55 @@ public class DbConnector {
         }
     }
 
-    public static void userNameValidityCheck(String userName) {
+    //Checking the availability of username
+    public static boolean userNameValidityCheck(String userName) {
         String sql = "SELECT user_name FROM user_accounts WHERE user_name = ?";
+        boolean isAvailable = false;
+
+        //Connect to the database
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setString(1, userName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            isAvailable = resultSet.next();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error while checking user_name availability.");
+            e.printStackTrace();
+        }
+
+        return isAvailable;
+
 
     }
+
+    //Checking the availability of email
+    public static boolean userEmailValidityCheck(String email) {
+        String sql = "SELECT user_name FROM user_accounts WHERE user_email = ?";
+        boolean isAvailable = false;
+
+        //Connect to the database
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            isAvailable = resultSet.next();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error while checking user_name availability.");
+            e.printStackTrace();
+        }
+
+        return isAvailable;
+
+
+    }
+
+
 }

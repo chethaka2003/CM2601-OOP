@@ -192,8 +192,16 @@ public class LoginController implements Initializable {
             Alert.giveWarningAlert("Empty field", "Please fill all the details in here");
         } else if (!terms.isSelected()) {
             Alert.giveWarningAlert("Terms and conditions", "You have not agreed to out terms and conditions");
-        } else {
-            System.out.println(firstName.getText());
+        }
+        else if(DbConnector.userNameValidityCheck(userName.getText())){
+            Alert.giveWarningAlert("User name error", "Username is already in use");
+        }
+
+        else if (DbConnector.userEmailValidityCheck(email.getText())){
+            Alert.giveWarningAlert("Email error", "Email is already in use");
+        }
+        else {
+            Alert.giveConfirmAlert("Successfully updated","You have successfully created a account please remember your login details");
             DbConnector.addDetails(firstName.getText(), lastName.getText(), userName.getText(), pwd.getText(), email.getText());
             firstName.clear();
             lastName.clear();
