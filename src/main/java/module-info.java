@@ -4,6 +4,7 @@ module com.example.coursework {
     requires java.xml;
     requires AnimateFX;
     requires java.sql;
+    requires json.simple;
 
 
     opens com.example.coursework to javafx.fxml;

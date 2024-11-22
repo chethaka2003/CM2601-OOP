@@ -50,9 +50,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.fxmisc.animatefx</groupId>
-            <artifactId>animatefx</artifactId>
-            <version>1.2.2</version> <!-- Or the latest version -->
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
         </dependency>
 
 
