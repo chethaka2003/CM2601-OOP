@@ -103,4 +103,46 @@ public class DbConnector {
     }
 
 
+    public static void addNews(String title, String author, String content, String image) {
+        String sql = "INSERT INTO news (title, author, content, image) VALUES (?, ?, ?, ?)";
+
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, author);
+            preparedStatement.setString(3, content);
+            preparedStatement.setString(4, image);
+
+            preparedStatement.executeUpdate();
+
+            connection.close();
+
+        }catch (SQLException e){
+            System.out.println("Error while adding new details.");
+        }
+
+
+    }
+
+    //Delete all the data in table
+    public static void deleteAllNewsData() {
+        String sql = "DELETE FROM news ";
+
+        connectToDb();
+
+        try {
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(sql);
+
+            connection.close();
+
+
+        } catch (SQLException e) {
+            System.out.println("There was a problem deleting the data.");;
+        }
+    }
+
+
 }

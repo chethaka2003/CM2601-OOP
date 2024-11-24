@@ -1,5 +1,6 @@
 package com.example.coursework;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,7 +26,7 @@ public class Api_connection {
 
     */
     public static void connectApi() {
-        String ex_url = "https://newsdata.io/api/1/sources?country=lk&apikey=pub_59509efe543bc197064e7ef9040c563a6ad82";
+        String ex_url = "https://newsapi.org/v2/everything?q=technology&language=en&apiKey=97d01f12afa3480e876a1c397e3afa0c";
 
 
 
@@ -53,13 +54,41 @@ public class Api_connection {
                     //close the scanner
                     scanner.close();
 
-                    System.out.println(informationString);
+//                    System.out.println(informationString);
 
                     //get json data
                     JSONParser parser = new JSONParser();
                     JSONObject jsonObject = (JSONObject) parser.parse(informationString.toString());
 
-                    System.out.println(jsonObject.get("results"));
+
+                    JSONArray results = (JSONArray) jsonObject.get("articles");
+
+                    //Catch the title of the news
+                    for (Object object:results){
+                        JSONObject item = (JSONObject) object;
+                        String author = (String) item.get("author");
+                        String newsContent = (String) item.get("content");
+                        String image = (String) item.get("urlToImage");
+                        String title = (String) item.get("title");
+
+//                        System.out.println(title);
+//                        System.out.println(author);
+//                        System.out.println(newsContent);
+//                        System.out.println(image);
+                        System.out.println("Break");
+
+//                        if((title == null||title.equals("[Removed]"))&&(author == null||author.equals("[Removed]"))&&(newsContent == null||newsContent.equals("[Removed]"))&&(image == null||image.equals("[Removed]"))){
+//                            continue;
+//                        }
+//                        else {
+//                            DbConnector.deleteAllNewsData();
+                            DbConnector.addNews(title,author,newsContent,image);
+//                        }
+                    }
+
+
+
+//                    System.out.println(jsonObject.get("results"));
                 }
                 else {
                     System.out.println("Failed to connect to the API");
