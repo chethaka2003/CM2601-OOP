@@ -5,6 +5,8 @@ module com.example.coursework {
     requires AnimateFX;
     requires java.sql;
     requires json.simple;
+    requires org.apache.opennlp.tools;
+    requires weka.dev;
 
 
     opens com.example.coursework to javafx.fxml;

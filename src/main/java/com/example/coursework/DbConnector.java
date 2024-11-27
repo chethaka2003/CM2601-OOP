@@ -1,6 +1,8 @@
 package com.example.coursework;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbConnector {
 
@@ -103,8 +105,8 @@ public class DbConnector {
     }
 
 
-    public static void addNews(String title, String author, String content, String image) {
-        String sql = "INSERT INTO news (title, author, content, image) VALUES (?, ?, ?, ?)";
+    public static void addNews(String title, String author, String content, String image,String category) {
+        String sql = "INSERT INTO news (title, author, content, image, category) VALUES (?, ?, ?, ?, ?)";
 
         connectToDb();
 
@@ -113,6 +115,7 @@ public class DbConnector {
             preparedStatement.setString(2, author);
             preparedStatement.setString(3, content);
             preparedStatement.setString(4, image);
+            preparedStatement.setString(5, category);
 
             preparedStatement.executeUpdate();
 
@@ -143,6 +146,30 @@ public class DbConnector {
             System.out.println("There was a problem deleting the data.");;
         }
     }
+
+    //Getting the data in  a column
+    public static List<String> getNewsData(String tableName, String columnName) {
+        List<String> data = new ArrayList<>();
+
+        connectToDb();
+
+        String sql = "SELECT " + columnName + " FROM " + tableName;
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                data.add(resultSet.getString(columnName));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error executing query: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+
 
 
 }

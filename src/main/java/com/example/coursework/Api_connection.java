@@ -15,19 +15,18 @@ public class Api_connection {
 
     public static URL url;
 
- /* Categories which are available
+    /* Categories which are available
 
-        1. All articles mentioning Apple from yesterday, sorted by popular publishers first
-            https://newsapi.org/v2/everything?q=apple&from=2024-11-16&to=2024-11-16&sortBy=popularity&apiKey=97d01f12afa3480e876a1c397e3afa0c
+           1. All articles mentioning Apple from yesterday, sorted by popular publishers first
+               https://newsapi.org/v2/everything?q=apple&from=2024-11-16&to=2024-11-16&sortBy=popularity&apiKey=97d01f12afa3480e876a1c397e3afa0c
 
-        2. All articles about Tesla from the last month, sorted by recent first
-            https://newsapi.org/v2/everything?q=tesla&from=2024-10-17&sortBy=publishedAt&apiKey=97d01f12afa3480e876a1c397e3afa0c
-        3.
+           2. All articles about Tesla from the last month, sorted by recent first
+               https://newsapi.org/v2/everything?q=tesla&from=2024-10-17&sortBy=publishedAt&apiKey=97d01f12afa3480e876a1c397e3afa0c
+           3.
 
-    */
+       */
     public static void connectApi() {
         String ex_url = "https://newsapi.org/v2/everything?q=technology&language=en&apiKey=97d01f12afa3480e876a1c397e3afa0c";
-
 
 
         {
@@ -41,13 +40,13 @@ public class Api_connection {
                 //Check if the connection is successful or not;
                 int responseCode = connection.getResponseCode();
 
-                if (responseCode == 200){
+                if (responseCode == 200) {
                     System.out.println("Successfully connected to the API");
 
                     StringBuilder informationString = new StringBuilder();
                     Scanner scanner = new Scanner(url.openStream());
 
-                    while (scanner.hasNextLine()){
+                    while (scanner.hasNextLine()) {
                         informationString.append(scanner.nextLine());
                     }
 
@@ -64,36 +63,32 @@ public class Api_connection {
                     JSONArray results = (JSONArray) jsonObject.get("articles");
 
                     //Catch the title of the news
-                    for (Object object:results){
+                    for (Object object : results) {
                         JSONObject item = (JSONObject) object;
                         String author = (String) item.get("author");
                         String newsContent = (String) item.get("content");
                         String image = (String) item.get("urlToImage");
                         String title = (String) item.get("title");
 
-//                        System.out.println(title);
-//                        System.out.println(author);
-//                        System.out.println(newsContent);
-//                        System.out.println(image);
-                        System.out.println("Break");
 
-//                        if((title == null||title.equals("[Removed]"))&&(author == null||author.equals("[Removed]"))&&(newsContent == null||newsContent.equals("[Removed]"))&&(image == null||image.equals("[Removed]"))){
-//                            continue;
-//                        }
-//                        else {
-//                            DbConnector.deleteAllNewsData();
-                            DbConnector.addNews(title,author,newsContent,image);
-//                        }
+                        if ((title == null)) {
+                            continue;
+                        } else if (author == null) {
+                            continue;
+                        } else if (newsContent == null) {
+                            continue;
+                        } else if (image == null) {
+                            continue;
+                        } else {
+                            DbConnector.addNews(title, author, newsContent, image, "health");
+                        }
                     }
 
 
-
 //                    System.out.println(jsonObject.get("results"));
-                }
-                else {
+                } else {
                     System.out.println("Failed to connect to the API");
                 }
-
 
 
             } catch (MalformedURLException e) {
@@ -104,9 +99,4 @@ public class Api_connection {
         }
     }
 
-    public static void main(String[] args) {
-        Api_connection.connectApi();
-    }
-
-    //try different
 }

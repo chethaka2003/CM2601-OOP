@@ -1,3 +1,66 @@
 .titleBar{
     -fx-background-color: #ffffff;
 }
+/* ScrollPane Styling */
+.newsHome {
+    -fx-background: #f0f2f5; /* Light gray background */
+    -fx-border-color: transparent; /* No visible border */
+}
+
+/* Background Pane */
+#nholderBg {
+    -fx-background-color: #f0f2f5; /* Facebook-style light gray */
+    -fx-padding: 20px; /* Padding for aesthetic spacing */
+}
+
+/* Article Pane */
+#article {
+    -fx-background-color: white; /* Clean white card look */
+    -fx-border-color: #ddd; /* Subtle border for cards */
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0, 4); /* Shadow for depth */
+}
+
+/* Title Styling */
+#title {
+    -fx-font-size: 18px; /* Slightly larger font */
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-font-weight: bold;
+    -fx-fill: #1c1e21; /* Dark gray text (Facebook's text color) */
+}
+
+/* Content Styling */
+#content {
+    -fx-font-size: 14px; /* Normal-sized font */
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-fill: #4b4f56; /* Secondary text color */
+    -fx-line-spacing: 2px; /* Line spacing for readability */
+}
+
+/* Image Styling */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 3); /* Shadow for image */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* ScrollPane Vertical Scrollbar Styling */
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Transparent background for viewport */
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent; /* Hide scrollbar track */
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #c7c9cc; /* Light gray scrollbar thumb */
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #a7a9ac; /* Darker gray on hover */
+}
