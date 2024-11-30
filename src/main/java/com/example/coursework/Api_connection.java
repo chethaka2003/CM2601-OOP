@@ -26,7 +26,7 @@ public class Api_connection {
 
        */
     public static void connectApi() {
-        String ex_url = "https://newsapi.org/v2/everything?q=technology&language=en&apiKey=97d01f12afa3480e876a1c397e3afa0c";
+        String ex_url = "https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=97d01f12afa3480e876a1c397e3afa0c";
 
 
         {
@@ -53,7 +53,7 @@ public class Api_connection {
                     //close the scanner
                     scanner.close();
 
-//                    System.out.println(informationString);
+                    System.out.println(informationString);
 
                     //get json data
                     JSONParser parser = new JSONParser();
@@ -81,6 +81,7 @@ public class Api_connection {
                             continue;
                         } else {
                             DbConnector.addNews(title, author, newsContent, image, "health");
+
                         }
                     }
 
@@ -97,6 +98,12 @@ public class Api_connection {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+
+    public static void main(String[] args) {
+        Api_connection.connectApi();
+
     }
 
 }

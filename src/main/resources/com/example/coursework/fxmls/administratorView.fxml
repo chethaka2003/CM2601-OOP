@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.controllers.AdministraorViewController">
+   <children>
+      <SplitPane dividerPositions="0.24448897795591182" prefHeight="700.0" prefWidth="1000.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="698.0" prefWidth="241.0">
+                     <children>
+                        <Pane prefHeight="82.0" prefWidth="241.0">
+                           <children>
+                              <Label layoutX="69.0" layoutY="32.0" text="Update user details" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="76.0" prefWidth="241.0">
+                           <children>
+                              <Label layoutX="86.0" layoutY="29.0" text="Remove User" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="76.0" prefWidth="241.0">
+                           <children>
+                              <Label layoutX="95.0" layoutY="29.0" text="Add news" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="76.0" prefWidth="241.0">
+                           <children>
+                              <Label layoutX="85.0" layoutY="29.0" text="Update News" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="76.0" prefWidth="241.0">
+                           <children>
+                              <Label layoutX="88.0" layoutY="29.0" text="Delete news" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="76.0" prefWidth="241.0">
+                           <children>
+                              <Label layoutX="92.0" layoutY="29.0" text="Dashboard" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="76.0" prefWidth="241.0">
+                           <children>
+                              <Label layoutX="74.0" layoutY="29.0" text="Help and Support" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="76.0" prefWidth="241.0" />
+                        <Pane prefHeight="97.0" prefWidth="241.0">
+                           <children>
+                              <ImageView fitHeight="60.0" fitWidth="58.0" layoutX="23.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/adminLogo.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="113.0" layoutY="39.0" text="Admin name" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Pane prefHeight="698.0" prefWidth="751.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
