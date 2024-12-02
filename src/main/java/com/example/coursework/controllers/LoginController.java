@@ -54,6 +54,12 @@ public class LoginController implements Initializable {
     @FXML
     private TextField userName;
 
+    @FXML
+    private TextField loginUserName;
+
+    @FXML
+    private TextField loginPwd;
+
 
     @FXML
     void back(MouseEvent event) {
@@ -217,14 +223,25 @@ public class LoginController implements Initializable {
         }
     }
 
+    //Checking user login
     @FXML
     void login(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/coursework/fxmls/Home.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/com/example/coursework/stylesheets/Home.css").toExternalForm());
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+
+        String user_name = loginUserName.getText();
+        String user_pwd = loginPwd.getText();
+        //Checking the pwd availability with userName
+        if (DbConnector.loginPwdValidityCheck(user_pwd,user_name)){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/coursework/fxmls/Home.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            scene.getStylesheets().add(getClass().getResource("/com/example/coursework/stylesheets/Home.css").toExternalForm());
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+            Alert.giveConfirmAlert("Login successful","You have successfully logged in to the account");
+        }
+        else {
+            Alert.giveWarningAlert("Password mismatch","Password or UserName is incorrect please check and enter again");
+        }
 
     }
 

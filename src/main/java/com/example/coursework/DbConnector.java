@@ -104,6 +104,40 @@ public class DbConnector {
 
     }
 
+    //Checking the availability of email
+    public static boolean loginPwdValidityCheck(String password, String name) {
+        String sql = "SELECT user_name FROM user_accounts WHERE user_password = ?";
+        boolean isAvailable = false;
+
+        //Connect to the database
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setString(1, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                String realUserName = resultSet.getString(1);
+                if (realUserName == name){
+                    isAvailable = true;
+                    System.out.println("ppp"+realUserName);
+                }
+
+            }
+            System.out.println("hhh"+name);
+
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error while checking user_name availability.");
+            e.printStackTrace();
+        }
+
+        return isAvailable;
+
+
+    }
+
 
     public static void addNews(String title, String author, String content, String image,String category) {
         String sql = "INSERT INTO news (title, author, content, image, category) VALUES (?, ?, ?, ?, ?)";

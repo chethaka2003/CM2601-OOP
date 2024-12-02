@@ -3,6 +3,7 @@ package com.example.coursework.controllers;
 import com.example.coursework.DbConnector;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,7 @@ public class HomeController implements Initializable {
     public List<String> content = new ArrayList<>();
     public List<String> images = new ArrayList<>();
     public List<String> like_count = new ArrayList<>();
+    public List<String> ids = new ArrayList<>();
 
     @FXML
     private ScrollPane newsHome;
@@ -38,6 +40,7 @@ public class HomeController implements Initializable {
         content = DbConnector.getNewsData("news", "content");
         images = DbConnector.getNewsData("news", "image");
         like_count = DbConnector.getNewsData("news","likes");
+        ids = DbConnector.getNewsData("news","id");
 
         int newsCount = Math.min(titles.size(), Math.min(content.size(), images.size()));
 
@@ -60,6 +63,7 @@ public class HomeController implements Initializable {
                 imageView.setLayoutX(21);
                 imageView.setLayoutY(80);
                 imageView.setId("image-view");
+                imageView.getOnMouseClicked();
                 pane.getChildren().add(imageView);
             }
 
@@ -87,6 +91,10 @@ public class HomeController implements Initializable {
             heart.setFitWidth(32);
             heart.setLayoutX(789);
             heart.setLayoutY(235);
+            heart.setOnMouseClicked( event -> {
+                System.out.println("Hello");
+
+            });
             pane.getChildren().add(heart);
 
             Text likeCount = new Text(like_count.get(i));
@@ -95,6 +103,10 @@ public class HomeController implements Initializable {
             likeCount.setLayoutY(255);
             likeCount.setWrappingWidth(43);
             pane.getChildren().add(likeCount);
+
+            Label id = new Label(ids.get(i));
+            id.setVisible(false);
+            pane.getChildren().add(id);
 
             // Add the article Pane to the holder Pane
             nholderBg.getChildren().add(pane);

@@ -79,8 +79,8 @@
                   <Font name="Great Vibes" size="83.0" />
                </font>
             </Label>
-            <TextField layoutX="87.0" layoutY="242.0" prefHeight="43.0" prefWidth="322.0" promptText="Username" styleClass="username" />
-            <TextField layoutX="87.0" layoutY="306.0" prefHeight="43.0" prefWidth="322.0" promptText="Password" styleClass="username" />
+            <TextField fx:id="loginUserName" layoutX="87.0" layoutY="242.0" prefHeight="43.0" prefWidth="322.0" promptText="Username" styleClass="username" />
+            <TextField fx:id="loginPwd" accessibleRole="PASSWORD_FIELD" layoutX="87.0" layoutY="306.0" prefHeight="43.0" prefWidth="322.0" promptText="Password" styleClass="username" />
             <Button fx:id="l" layoutX="268.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="37.0" prefWidth="149.0" styleClass="Login" text="Login">
                <font>
                   <Font size="15.0" />
