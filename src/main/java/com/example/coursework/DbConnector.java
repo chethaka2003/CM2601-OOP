@@ -104,39 +104,36 @@ public class DbConnector {
 
     }
 
-    //Checking the availability of email
+    // Checking the validity of password and username
     public static boolean loginPwdValidityCheck(String password, String name) {
         String sql = "SELECT user_name FROM user_accounts WHERE user_password = ?";
         boolean isAvailable = false;
 
-        //Connect to the database
+        // Connect to the database (ensure this initializes 'connection')
         connectToDb();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setString(1, password);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, password); // Set the password parameter
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                String realUserName = resultSet.getString(1);
-                if (realUserName == name){
-                    isAvailable = true;
-                    System.out.println("ppp"+realUserName);
+
+            // Check if the resultSet has any records and move to the first row
+            if (resultSet.next()) {
+                String realUserName = resultSet.getString("user_name"); // Get the username
+                if (realUserName.equals(name)) { // Compare the username correctly
+                    isAvailable = true; // User is valid
                 }
-
             }
-            System.out.println("hhh"+name);
 
-
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Error while checking user_name availability.");
+        } catch (SQLException e) {
+            System.out.println("Error while checking user credentials: " + e.getMessage());
             e.printStackTrace();
         }
 
-        return isAvailable;
-
-
+        return isAvailable; // Return whether the user is valid or not
     }
+
+
+
 
 
     public static void addNews(String title, String author, String content, String image,String category) {
@@ -204,6 +201,29 @@ public class DbConnector {
     }
 
 
+    // To get the user ID by using userName
+    public static String getUserId(String name) {
+        String sql = "SELECT user_id FROM user_accounts WHERE user_name = ?";
+
+        // Connect to the database (ensure this initializes 'connection')
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name); // Set the password parameter
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if the resultSet has any records and move to the first row
+            if (resultSet.next()) {
+                return resultSet.getString("user_id");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while checking user credentials: " + e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println("no");
+        return "no" ;
+    }
 
 
 }

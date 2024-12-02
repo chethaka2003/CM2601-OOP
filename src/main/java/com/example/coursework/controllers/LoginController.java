@@ -25,6 +25,9 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
+    //To identify the user
+    private static String userIdInstance;
+
     Stage stage;
 
     @FXML
@@ -231,6 +234,7 @@ public class LoginController implements Initializable {
         String user_pwd = loginPwd.getText();
         //Checking the pwd availability with userName
         if (DbConnector.loginPwdValidityCheck(user_pwd,user_name)){
+            this.userIdInstance = DbConnector.getUserId(user_name);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/coursework/fxmls/Home.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             scene.getStylesheets().add(getClass().getResource("/com/example/coursework/stylesheets/Home.css").toExternalForm());
@@ -243,6 +247,10 @@ public class LoginController implements Initializable {
             Alert.giveWarningAlert("Password mismatch","Password or UserName is incorrect please check and enter again");
         }
 
+    }
+
+    public static String getLoggedUserId(){
+        return userIdInstance;
     }
 
 }
