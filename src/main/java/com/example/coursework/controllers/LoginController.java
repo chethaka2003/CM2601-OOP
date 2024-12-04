@@ -232,9 +232,19 @@ public class LoginController implements Initializable {
 
         String user_name = loginUserName.getText();
         String user_pwd = loginPwd.getText();
+        //Giving the access to
+        if (user_name.equals("admin") && user_pwd.equals("admin")) {
+            System.out.println("You are in admin view");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/coursework/fxmls/administratorView.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+            Alert.giveConfirmAlert("Login successful","You have successfully logged in to Administrator view");
+        }
         //Checking the pwd availability with userName
-        if (DbConnector.loginPwdValidityCheck(user_pwd,user_name)){
-            this.userIdInstance = DbConnector.getUserId(user_name);
+        else if (DbConnector.loginPwdValidityCheck(user_pwd,user_name)){
+            userIdInstance = DbConnector.getUserId(user_name);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/coursework/fxmls/Home.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             scene.getStylesheets().add(getClass().getResource("/com/example/coursework/stylesheets/Home.css").toExternalForm());
@@ -249,6 +259,7 @@ public class LoginController implements Initializable {
 
     }
 
+    //Get the user ID
     public static String getLoggedUserId(){
         return userIdInstance;
     }

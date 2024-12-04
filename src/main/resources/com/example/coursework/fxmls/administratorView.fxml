@@ -21,37 +21,37 @@
                <children>
                   <VBox prefHeight="698.0" prefWidth="241.0">
                      <children>
-                        <Pane prefHeight="82.0" prefWidth="241.0">
+                        <Pane onMouseClicked="#update_user" prefHeight="82.0" prefWidth="241.0">
                            <children>
                               <Label layoutX="69.0" layoutY="32.0" text="Update user details" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="76.0" prefWidth="241.0">
+                        <Pane onMouseClicked="#rem_user_clicked" prefHeight="76.0" prefWidth="241.0">
                            <children>
                               <Label layoutX="86.0" layoutY="29.0" text="Remove User" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="76.0" prefWidth="241.0">
+                        <Pane onMouseClicked="#add_news_clicked" prefHeight="76.0" prefWidth="241.0">
                            <children>
                               <Label layoutX="95.0" layoutY="29.0" text="Add news" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="76.0" prefWidth="241.0">
+                        <Pane onMouseClicked="#up_news_clked" prefHeight="76.0" prefWidth="241.0">
                            <children>
                               <Label layoutX="85.0" layoutY="29.0" text="Update News" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="76.0" prefWidth="241.0">
+                        <Pane onMouseClicked="#del_news_clked" prefHeight="76.0" prefWidth="241.0">
                            <children>
                               <Label layoutX="88.0" layoutY="29.0" text="Delete news" />
                            </children>
                         </Pane>
                         <Pane prefHeight="76.0" prefWidth="241.0">
                            <children>
-                              <Label layoutX="92.0" layoutY="29.0" text="Dashboard" />
+                              <Label layoutX="92.0" layoutY="29.0" onMouseClicked="#dshbrd_clked" text="Dashboard" />
                            </children>
                         </Pane>
-                        <Pane prefHeight="76.0" prefWidth="241.0">
+                        <Pane onMouseClicked="#hlp_spt_clked" prefHeight="76.0" prefWidth="241.0">
                            <children>
                               <Label layoutX="74.0" layoutY="29.0" text="Help and Support" />
                            </children>
@@ -73,7 +73,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Pane prefHeight="698.0" prefWidth="751.0" visible="false">
+                  <Pane fx:id="updt_usr_pn" prefHeight="698.0" prefWidth="751.0" visible="false">
                      <children>
                         <TextField layoutX="140.0" layoutY="70.0" prefHeight="25.0" prefWidth="570.0" />
                         <Label layoutX="44.0" layoutY="74.0" text="User email :" />
@@ -124,7 +124,7 @@
                            </image>
                         </ImageView>
                      </children></Pane>
-                  <Pane prefHeight="698.0" prefWidth="751.0" visible="false">
+                  <Pane fx:id="del_usr_pn" prefHeight="698.0" prefWidth="751.0" visible="false">
                      <children>
                         <TextField layoutX="146.0" layoutY="72.0" prefHeight="25.0" prefWidth="570.0" />
                         <Label layoutX="47.0" layoutY="77.0" text="User email or id :" />
@@ -157,7 +157,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <Pane prefHeight="698.0" prefWidth="751.0" visible="false">
+                  <Pane fx:id="add_news_pn" prefHeight="698.0" prefWidth="751.0" visible="false">
                      <children>
                         <Label layoutX="42.0" layoutY="173.0" text="News content : " />
                         <TextArea layoutX="146.0" layoutY="164.0" prefHeight="111.0" prefWidth="576.0" />
@@ -176,7 +176,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane layoutY="-1.0" prefHeight="700.0" prefWidth="751.0" visible="false">
+                  <Pane fx:id="updt_news_pn" layoutY="-1.0" prefHeight="700.0" prefWidth="751.0" visible="false">
                      <children>
                         <TextField layoutX="128.0" layoutY="81.0" prefHeight="25.0" prefWidth="570.0" />
                         <Label layoutX="47.0" layoutY="85.0" text="News ID :" />
@@ -215,7 +215,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <Pane layoutY="-1.0" prefHeight="700.0" prefWidth="751.0">
+                  <Pane fx:id="del_nws_pn" layoutY="-1.0" prefHeight="700.0" prefWidth="751.0">
                      <children>
                         <TextField layoutX="131.0" layoutY="79.0" prefHeight="25.0" prefWidth="570.0" />
                         <Label layoutX="51.0" layoutY="83.0" text="News ID :" />

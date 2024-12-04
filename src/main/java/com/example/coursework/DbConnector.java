@@ -225,5 +225,42 @@ public class DbConnector {
         return "no" ;
     }
 
+    public static void UpdateSingleValue(String tableName , String updateColumnName , String conTableName , String updateValue , String conValue){
+        String sql = "UPDATE " + tableName + " SET " + updateColumnName + " = ? WHERE " + conTableName + " = ?";
+
+        connectToDb();
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, updateValue);
+            preparedStatement.setString(2,conValue );
+
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //To update the likes into the database
+    public static void AddingUserLikes(int user_id , int news_id){
+        String sql = "INSERT INTO news_user_like (news_id,user_id) VALUES (?,?)";
+
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1,news_id);
+            preparedStatement.setInt(2,user_id);
+
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("User like has successfully added to the system");
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
