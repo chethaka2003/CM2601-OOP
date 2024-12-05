@@ -25,13 +25,13 @@ public class Api_connection {
            3.
 
        */
-    public static void connectApi() {
-        String ex_url = "https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=97d01f12afa3480e876a1c397e3afa0c";
+    public static void connectApi(String new_url,String new_cat) {
+//        String ex_url = "https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=97d01f12afa3480e876a1c397e3afa0c";
 
 
         {
             try {
-                url = new URL(ex_url);
+                url = new URL(new_url);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
@@ -80,7 +80,7 @@ public class Api_connection {
                         } else if (image == null) {
                             continue;
                         } else {
-                            DbConnector.addNews(title, author, newsContent, image, "health");
+                            DbConnector.addNews(title, author, newsContent, image, new_cat);
 
                         }
                     }
@@ -100,10 +100,5 @@ public class Api_connection {
         }
     }
 
-
-    public static void main(String[] args) {
-        Api_connection.connectApi();
-
-    }
 
 }

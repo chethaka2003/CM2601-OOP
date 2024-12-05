@@ -16,7 +16,7 @@ public class Alert {
 
     }
 
-    //Giving an confirmation massage
+    //Giving a confirmation massage
     public static void giveConfirmAlert(String title,String content){
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
@@ -24,4 +24,6 @@ public class Alert {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+
 }

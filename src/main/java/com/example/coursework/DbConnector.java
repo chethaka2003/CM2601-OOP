@@ -15,18 +15,18 @@ public class DbConnector {
     // Method to connect to the database
     public static void connectToDb() {
 
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                // Connect with only URL and username since there's no password
-                connection = DriverManager.getConnection(URL, USERNAME, "");
-                System.out.println("Connected to the database.");
-            } catch (ClassNotFoundException e) {
-                System.out.println("JDBC Driver not found.");
-                e.printStackTrace();
-            } catch (SQLException e) {
-                System.out.println("Error: Unable to connect to the database.");
-                e.printStackTrace();
-            }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Connect with only URL and username since there's no password
+            connection = DriverManager.getConnection(URL, USERNAME, "");
+            System.out.println("Connected to the database.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("JDBC Driver not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Error: Unable to connect to the database.");
+            e.printStackTrace();
+        }
 
 
     }
@@ -62,14 +62,12 @@ public class DbConnector {
         //Connect to the database
         connectToDb();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, userName);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             isAvailable = resultSet.next();
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("Error while checking user_name availability.");
             e.printStackTrace();
         }
@@ -87,14 +85,12 @@ public class DbConnector {
         //Connect to the database
         connectToDb();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             isAvailable = resultSet.next();
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("Error while checking user_name availability.");
             e.printStackTrace();
         }
@@ -133,15 +129,12 @@ public class DbConnector {
     }
 
 
-
-
-
-    public static void addNews(String title, String author, String content, String image,String category) {
+    public static void addNews(String title, String author, String content, String image, String category) {
         String sql = "INSERT INTO news (title, author, content, image, category) VALUES (?, ?, ?, ?, ?)";
 
         connectToDb();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, author);
             preparedStatement.setString(3, content);
@@ -152,7 +145,7 @@ public class DbConnector {
 
             connection.close();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error while adding new details.");
         }
 
@@ -174,7 +167,8 @@ public class DbConnector {
 
 
         } catch (SQLException e) {
-            System.out.println("There was a problem deleting the data.");;
+            System.out.println("There was a problem deleting the data.");
+            ;
         }
     }
 
@@ -222,17 +216,17 @@ public class DbConnector {
             e.printStackTrace();
         }
         System.out.println("no");
-        return "no" ;
+        return "no";
     }
 
-    public static void UpdateSingleValue(String tableName , String updateColumnName , String conTableName , String updateValue , String conValue){
+    public static void UpdateSingleValue(String tableName, String updateColumnName, String conTableName, String updateValue, String conValue) {
         String sql = "UPDATE " + tableName + " SET " + updateColumnName + " = ? WHERE " + conTableName + " = ?";
 
         connectToDb();
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, updateValue);
-            preparedStatement.setString(2,conValue );
+            preparedStatement.setString(2, conValue);
 
 
             preparedStatement.executeUpdate();
@@ -243,14 +237,14 @@ public class DbConnector {
     }
 
     //To update the likes into the database
-    public static void AddingUserLikes(int user_id , int news_id){
+    public static void AddingUserLikes(int user_id, int news_id) {
         String sql = "INSERT INTO news_user_like (news_id,user_id) VALUES (?,?)";
 
         connectToDb();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setInt(1,news_id);
-            preparedStatement.setInt(2,user_id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, news_id);
+            preparedStatement.setInt(2, user_id);
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
@@ -263,4 +257,70 @@ public class DbConnector {
         }
     }
 
+    public static String getUserData(String columnName, String tableName, String conColumn, String condition) {
+
+        String sql = "SELECT " + columnName + " FROM " + tableName + " WHERE " + conColumn + " = ?";
+
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, condition);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if the resultSet has any records and move to the first row
+            if (resultSet.next()) {
+                return resultSet.getString(columnName);
+            }
+            else {
+                return "no";
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //Creates a method to remove a raw in table
+    public static void deleteRaw(String tableName , String columnName, String constraint){
+        String sql = "DELETE FROM " + tableName + " WHERE "+ columnName + " = ?";
+
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setString(1,constraint);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Successfully removed the raw");
+
+        }catch (SQLException e){
+            System.out.println("Error found : Cant delete the raw");
+        }
+
+    }
+
+    //Checking the availability of news_id
+    public static boolean newsIdValidityCheck(int newsId) {
+        String sql = "SELECT id FROM news WHERE id = ?";
+        boolean isAvailable = false;
+
+        //Connect to the database
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, newsId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            isAvailable = resultSet.next();
+        } catch (SQLException e) {
+            System.out.println("Error while checking news_id availability.");
+            e.printStackTrace();
+        }
+
+        return isAvailable;
+
+
+    }
 }
