@@ -323,4 +323,89 @@ public class DbConnector {
 
 
     }
+
+    public static List<Integer> getUserLikedNews(String columnName, String tableName, String conColumn, int condition) {
+
+        List<Integer> data = new ArrayList<>();
+
+        String sql = "SELECT " + columnName + " FROM " + tableName + " WHERE " + conColumn + " = ?";
+
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, condition);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if the resultSet has any records and move to the first row
+            if (resultSet.next()) {
+                data.add(resultSet.getInt(columnName));
+            }
+            else {
+                return data;
+            }
+        return data;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //Get news user liked news category
+    public static String getNewsCat(String columnName, String tableName, String conColumn, int condition) {
+
+        String sql = "SELECT " + columnName + " FROM " + tableName + " WHERE " + conColumn + " = ?";
+
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, condition);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if the resultSet has any records and move to the first row
+            if (resultSet.next()) {
+                return resultSet.getString(columnName);
+            }
+            else {
+                return "no";
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //Get 5 news according to user preferences
+    public static List<String> getUserPrefNews(String columnName, String tableName, String conColumn, String condition) {
+
+        List<String> data = new ArrayList<>();
+
+        String sql = "SELECT " + columnName + " FROM " + tableName + " WHERE " + conColumn + " = ? LIMIT 5";
+
+        connectToDb();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, condition);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Check if the resultSet has any records and move to the first row
+            if (resultSet.next()) {
+                data.add(resultSet.getString(columnName));
+            }
+            else {
+                return data;
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return data;
+
+    }
 }

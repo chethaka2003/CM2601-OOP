@@ -3,21 +3,25 @@ package com.example.coursework.controllers;
 import com.example.coursework.DbConnector;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HomeController implements Initializable {
+
+    //String variable to hold user favourable category
+    String mostRepeated;
 
     private int layoutY = 23; // Starting Y position for the first article
     private final int paneHeight = 380; // Height of each article Pane
@@ -30,9 +34,11 @@ public class HomeController implements Initializable {
     private List<String> like_count = new ArrayList<>();
     private List<String> ids = new ArrayList<>();
 
+
+    private List<Integer> likedNews;
+
     private HashMap<String,Boolean> liked_status = new HashMap<>();
 
-    private Boolean liked = false;
 
     @FXML
     private ScrollPane newsHome;
@@ -55,7 +61,11 @@ public class HomeController implements Initializable {
             // Update UI with the loaded data (this needs to be done on the UI thread)
             Platform.runLater(this::loadArticles);
         }).start();
+
+        userPref(4);
     }
+
+
 
     // Method to load articles into the UI
     private void loadArticles() {
@@ -160,6 +170,44 @@ public class HomeController implements Initializable {
         pane.getChildren().add(heart);
 
         return pane;
+    }
+
+    public String userPref(int userId) {
+        // list to store categories
+        List<String> contents = new ArrayList<>();
+        likedNews = DbConnector.getUserLikedNews("news_id", "news_user_like", "user_id", userId);
+
+        for (int id : likedNews) {
+            contents.add(DbConnector.getNewsCat("category", "news", "id", id));
+        }
+
+        // Count occurrences of each category
+        Map<String, Long> frequencyMap = contents.stream()
+                .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
+
+        // Find the maximum frequency
+        long maxCount = frequencyMap.values().stream().max(Long::compare).orElse(0L);
+
+        // Find the first category with the maximum frequency
+        String mostRepeated = frequencyMap.entrySet().stream()
+                .filter(entry -> entry.getValue() == maxCount)
+                .map(Map.Entry::getKey)
+                .findFirst() // Get the first one
+                .orElse(null); // Handle the case where no categories are found
+
+        System.out.println("Most repeated category: " + mostRepeated);
+        return mostRepeated;
+    }
+
+
+
+
+
+    @FXML
+    void close(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        System.out.println("close");
     }
 
 }

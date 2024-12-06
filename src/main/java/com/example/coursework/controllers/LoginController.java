@@ -64,8 +64,6 @@ public class LoginController implements Initializable {
     private TextField loginPwd;
 
 
-
-
     @FXML
     void back(MouseEvent event) {
         new FadeIn(LoginPage).play();
@@ -242,7 +240,7 @@ public class LoginController implements Initializable {
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-            Alert.giveConfirmAlert("Login successful","You have successfully logged in to Administrator view");
+            Alert.giveConfirmAlert("Login successful","You have successfully logged in to Administrator the account");
         }
         //Checking the pwd availability with userName
         else if (DbConnector.loginPwdValidityCheck(user_pwd,user_name)){
